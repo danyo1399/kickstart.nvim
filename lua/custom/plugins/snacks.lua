@@ -63,35 +63,35 @@ return {
     },
     -- find
     {
-      '<leader>fb',
+      '<leader>sb',
       function()
         Snacks.picker.buffers()
       end,
       desc = 'Buffers',
     },
     {
-      '<leader>fc',
+      '<leader>Fc',
       function()
         Snacks.picker.files { cwd = vim.fn.stdpath 'config' }
       end,
       desc = 'Find Config File',
     },
     {
-      '<leader>ff',
+      '<leader>Ff',
       function()
         Snacks.picker.files()
       end,
       desc = 'Find Files',
     },
     {
-      '<leader>fg',
+      '<leader>Fg',
       function()
         Snacks.picker.git_files()
       end,
       desc = 'Find Git Files',
     },
     {
-      '<leader>fp',
+      '<leader>Fp',
       function()
         Snacks.picker.projects()
       end,
@@ -155,13 +155,13 @@ return {
       desc = 'Git Log File',
     },
     -- Grep
-    {
-      '<leader>sb',
-      function()
-        Snacks.picker.lines()
-      end,
-      desc = 'Buffer Lines',
-    },
+    -- {
+    --   '<leader>sb',
+    --   function()
+    --     Snacks.picker.lines()
+    --   end,
+    --   desc = 'Buffer Lines',
+    -- },
     {
       '<leader>sB',
       function()
@@ -205,13 +205,6 @@ return {
         Snacks.picker.autocmds()
       end,
       desc = 'Autocmds',
-    },
-    {
-      '<leader>sb',
-      function()
-        Snacks.picker.lines()
-      end,
-      desc = 'Buffer Lines',
     },
     {
       '<leader>sc',
