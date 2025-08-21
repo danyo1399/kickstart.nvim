@@ -449,9 +449,9 @@ return {
       desc = 'Dismiss All Notifications',
     },
     {
-      '<c-/>',
+      '<c-\\>',
       function()
-        Snacks.terminal()
+        Snacks.terminal.toggle()
       end,
       desc = 'Toggle Terminal',
       mode = { 'n', 'i', 't' },
