@@ -26,7 +26,11 @@
 vim.opt.spell = true
 vim.opt.spelllang = 'en_nz'
 vim.opt.colorcolumn = '80'
-
+-- spaces not tabs
+vim.expandtab = true
+vim.smartindent = true
+vim.tabstop = 2
+vim.shiftwidth = 2
 vim.keymap.set('i', 'jj', '<Esc>:wa<CR>', { desc = 'exit insert mode and save' })
 vim.keymap.set('i', 'JJ', '<Esc><leader>f:wa<CR>', { desc = 'Format document and save' })
 
