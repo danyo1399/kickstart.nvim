@@ -23,46 +23,10 @@
 --]]
 
 -- My custom settings
-vim.opt.spell = true
-vim.opt.spelllang = 'en_nz'
-vim.opt.colorcolumn = '80'
--- spaces not tabs
-vim.expandtab = true
-vim.smartindent = true
-vim.tabstop = 2
-vim.shiftwidth = 2
 
-vim.keymap.set('i', 'jj', function()
-  vim.cmd 'stopinsert'
-  vim.cmd 'wa'
-end, { desc = 'exit insert mode and save' })
-
-vim.keymap.set('i', 'JJ', function()
-  vim.cmd 'stopinsert'
-  require('conform').format({ async = true }, function(err)
-    if not err then
-      vim.cmd 'write'
-    else
-      vim.notify('Formatting failed: ' .. err, vim.log.levels.ERROR)
-    end
-  end)
-end, { desc = 'Format document and save' })
-
-vim.api.nvim_create_autocmd('BufLeave', {
-  pattern = '*',
-  callback = function()
-    local buftype = vim.bo.buftype
-    local modified = vim.bo.modified
-    local bufname = vim.api.nvim_buf_get_name(0)
-
-    if buftype == '' and modified and bufname ~= '' then
-      local ok, err = pcall(vim.cmd, 'write')
-      if not ok then
-        vim.notify('Auto-save failed: ' .. err, vim.log.levels.WARN)
-      end
-    end
-  end,
-})
+require 'custom.autocmds'
+require 'custom.keymaps'
+require 'custom.config'
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
