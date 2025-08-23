@@ -27,7 +27,7 @@ return {
   keys = {
     -- Top Pickers & Explorer
     {
-      '<leader>sf',
+      '<leader>fs',
       function()
         Snacks.picker.smart()
       end,
@@ -49,28 +49,35 @@ return {
       desc = 'Buffers',
     },
     {
-      '<leader>Fc',
+      '<leader>fc',
       function()
         Snacks.picker.files { cwd = vim.fn.stdpath 'config' }
       end,
       desc = 'Find Config File',
     },
     {
-      '<leader>Ff',
+      '<leader>sf',
       function()
         Snacks.picker.files()
       end,
       desc = 'Find Files',
     },
     {
-      '<leader>Fg',
+      '<leader>ff',
+      function()
+        Snacks.picker.files()
+      end,
+      desc = 'Find Files',
+    },
+    {
+      '<leader>fg',
       function()
         Snacks.picker.git_files()
       end,
       desc = 'Find Git Files',
     },
     {
-      '<leader>Fp',
+      '<leader>fp',
       function()
         Snacks.picker.projects()
       end,
@@ -434,13 +441,6 @@ return {
       end,
       desc = 'Toggle Terminal',
       mode = { 'n', 'i', 't' },
-    },
-    {
-      '<c-_>',
-      function()
-        Snacks.terminal()
-      end,
-      desc = 'which_key_ignore',
     },
     {
       ']]',
