@@ -31,8 +31,22 @@ vim.expandtab = true
 vim.smartindent = true
 vim.tabstop = 2
 vim.shiftwidth = 2
-vim.keymap.set('i', 'jj', '<Esc>:wa<CR>', { desc = 'exit insert mode and save' })
-vim.keymap.set('i', 'JJ', '<Esc><leader>f:wa<CR>', { desc = 'Format document and save' })
+
+vim.keymap.set('i', 'jj', function()
+  vim.cmd 'stopinsert'
+  vim.cmd 'wa'
+end, { desc = 'exit insert mode and save' })
+
+vim.keymap.set('i', 'JJ', function()
+  vim.cmd 'stopinsert'
+  require('conform').format({ async = true }, function(err)
+    if not err then
+      vim.cmd 'write'
+    else
+      vim.notify('Formatting failed: ' .. err, vim.log.levels.ERROR)
+    end
+  end)
+end, { desc = 'Format document and save' })
 
 vim.api.nvim_create_autocmd('BufLeave', {
   pattern = '*',
@@ -325,7 +339,6 @@ require('lazy').setup({
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
-
   -- LSP Plugins
   {
     -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
@@ -407,15 +420,9 @@ require('lazy').setup({
           -- or a suggestion from your LSP for this to activate.
           map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
 
-
-
-
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
           map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-
-
-
 
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
@@ -613,20 +620,22 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        if disable_filetypes[vim.bo[bufnr].filetype] then
-          return nil
-        else
-          return {
-            timeout_ms = 500,
-            lsp_format = 'fallback',
-          }
-        end
-      end,
+      format_on_save = false,
+      -- format_on_save = function(bufnr)
+      --   -- disable format on save for now
+      --   -- Disable "format_on_save lsp_fallback" for languages that don't
+      --   -- have a well standardized coding style. You can add additional
+      --   -- languages here or re-enable it for the disabled ones.
+      --   local disable_filetypes = { c = true, cpp = true }
+      --   if disable_filetypes[vim.bo[bufnr].filetype] then
+      --     return nil
+      --   else
+      --     return {
+      --       timeout_ms = 500,
+      --       lsp_format = 'fallback',
+      --     }
+      --   end
+      -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
