@@ -25,7 +25,7 @@ return {
         },
       },
       virtualtext = {
-        auto_trigger_ft = { 'lua', 'typescript', 'python', 'go', 'elixir' },
+        auto_trigger_ft = { 'javascript', 'typescriptreact', 'lua', 'typescript', 'python', 'go', 'elixir' },
         keymap = {
           -- accept whole completion
           accept = '<A-A>',
