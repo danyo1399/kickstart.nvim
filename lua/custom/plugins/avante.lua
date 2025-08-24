@@ -5,6 +5,21 @@ return {
   build = vim.fn.has 'win32' ~= 0 and 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false' or 'make',
   event = 'VeryLazy',
   version = false, -- Never set this value to "*"! Never!
+  config = function()
+    require('avante').setup {
+      system_prompt = function()
+        local hub = require('mcphub').get_hub_instance()
+        return hub and hub:get_active_servers_prompt() or ''
+      end,
+      -- Using function prevents requiring mcphub before it's loaded
+      custom_tools = function()
+        return {
+          require('mcphub.extensions.avante').mcp_tool(),
+        }
+      end,
+    }
+  end,
+
   ---@module 'avante'
   ---@type avante.Config
   opts = {
@@ -12,6 +27,16 @@ return {
     -- for example
     provider = 'claude',
     providers = {
+      lmstudio = {
+        __inherited_from = 'openai',
+        endpoint = 'http://localhost:1234/v1',
+        model = 'qwen3-coder-30b-a3b-instruct-mlx@8bit',
+        timeout = 30000,
+        extra_request_body = {
+          temperature = 0.75,
+          max_tokens = 20480,
+        },
+      },
       claude = {
         endpoint = 'https://api.anthropic.com',
         model = 'claude-sonnet-4-20250514',
