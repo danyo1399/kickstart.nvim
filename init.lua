@@ -500,6 +500,7 @@ require('lazy').setup({
         rust_analyzer = {},
         templ = {},
         tailwindcss = {},
+        csharp_ls = {},
         eslint = {
           on_attach = function(client, bufnr)
             if not base_on_attach then
