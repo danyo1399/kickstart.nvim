@@ -34,7 +34,7 @@ return {
       desc = 'Smart Find Files',
     },
     {
-      '<leader>n',
+      '<leader>sn',
       function()
         Snacks.picker.notifications()
       end,
