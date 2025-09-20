@@ -12,7 +12,11 @@ return {
       enabled = true,
       timeout = 3000,
     },
-    picker = { enabled = true },
+    picker = { enabled = true, formatters = {
+      file = {
+        truncate = 60,
+      },
+    } },
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },
@@ -70,7 +74,7 @@ return {
       desc = 'Find Files',
     },
     {
-      '<leader>fg',
+      '<leader>gF',
       function()
         Snacks.picker.git_files()
       end,

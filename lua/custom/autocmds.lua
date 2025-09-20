@@ -13,3 +13,14 @@ vim.api.nvim_create_autocmd('BufLeave', {
     end
   end,
 })
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = '*',
+  callback = function()
+    local buftype = vim.bo.buftype
+    local bufname = vim.api.nvim_buf_get_name(0)
+
+    if buftype == '' and bufname ~= '' then
+      vim.cmd 'Neotree close'
+    end
+  end,
+})

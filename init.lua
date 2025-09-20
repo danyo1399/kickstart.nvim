@@ -22,17 +22,17 @@
 
 --]]
 
--- My custom settings
-
-require 'custom.autocmds'
-require 'custom.keymaps'
-require 'custom.config'
-
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+-- My custom settings
+
+require 'custom.autocmds'
+require 'custom.keymaps'
+require 'custom.config'
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -292,6 +292,7 @@ require('lazy').setup({
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
         { '<leader>Q', group = '[Q] Persistence' },
         { '<leader>x', group = '[x] Trouble' },
+        { '<c-s>', group = '[<c-s>] surround' },
       },
     },
   },
@@ -495,12 +496,21 @@ require('lazy').setup({
       local base_on_attach = vim.lsp.config.eslint.on_attach
       local servers = {
         -- clangd = {},
+        biome = {},
+        jsonls = {},
         gopls = {},
         pyright = {},
         rust_analyzer = {},
         templ = {},
         tailwindcss = {},
         csharp_ls = {},
+        jdtls = {
+          settings = {
+            java = {
+              -- Custom eclipse.jdt.ls options go here
+            },
+          },
+        },
         eslint = {
           on_attach = function(client, bufnr)
             if not base_on_attach then
@@ -578,6 +588,7 @@ require('lazy').setup({
   { -- Autoformat
     'stevearc/conform.nvim',
     event = { 'BufWritePre' },
+
     cmd = { 'ConformInfo' },
     keys = {
       {
@@ -609,6 +620,7 @@ require('lazy').setup({
       -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        -- cs = { 'csharpier' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
