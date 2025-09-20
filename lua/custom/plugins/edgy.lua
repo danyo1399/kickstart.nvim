@@ -7,7 +7,7 @@ return {
       opts[pos] = opts[pos] or {}
       table.insert(opts[pos], {
         ft = 'snacks_terminal',
-        size = { height = 0.3 },
+        size = { height = 0.4 },
         title = '%{b:snacks_terminal.id}: %{b:term_title}',
         filter = function(_buf, win)
           return vim.w[win].snacks_win
