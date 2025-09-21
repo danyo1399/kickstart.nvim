@@ -503,7 +503,6 @@ require('lazy').setup({
         rust_analyzer = {},
         templ = {},
         tailwindcss = {},
-        csharp_ls = {},
         jdtls = {
           settings = {
             java = {
