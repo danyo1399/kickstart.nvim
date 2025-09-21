@@ -566,6 +566,12 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
       })
+
+      -- Used to install mason deps when creating docker images with preinstalled neovim
+      vim.api.nvim_create_user_command('MasonInstallAll', function()
+        vim.cmd('MasonInstall ' .. table.concat(ensure_installed, ' '))
+      end, {})
+
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
